@@ -21,7 +21,6 @@ The backend is hosted on **Render's Free Tier**. If you see a "Network Error" or
 
 ---
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
 
 ## 📋 Table of Contents
 - [✨ Features](#-features)
@@ -72,7 +71,7 @@ npm run dev
 
 Visit `http://localhost:5173` to view the app!
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 📁 Project Structure
 
@@ -91,5 +90,3 @@ hrms-lite/
 └── README.md           # Documentation
 ```
 
----
-**Built with ❤️ by EtharaAI Team**

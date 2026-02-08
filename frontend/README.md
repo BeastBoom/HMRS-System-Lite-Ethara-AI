@@ -21,7 +21,6 @@ The backend (Render) may sleep after inactivity. If the frontend shows a "Networ
 
 ---
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
 
 ## 📋 Table of Contents
 - [✨ Features](#-features)
@@ -39,7 +38,7 @@ The backend (Render) may sleep after inactivity. If the frontend shows a "Networ
 - **🛡️ Type Safety**: Comprehensive TypeScript definitions.
 - **🔔 Notifications**: Toast notifications for user feedback.
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 🛠️ Tech Stack
 
@@ -54,7 +53,7 @@ The backend (Render) may sleep after inactivity. If the frontend shows a "Networ
 | **Icons** | Lucide React | Modern SVG Icons |
 | **Charts** | Recharts | Dashboard Analytics |
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 🚀 Local Development
 
@@ -81,7 +80,7 @@ npm run dev
 ```
 Access the app at `http://localhost:5173`.
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 🏗️ Build & Scripts
 

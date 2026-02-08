@@ -21,7 +21,7 @@ The backend is hosted on **Render's Free Tier**. It spins down after inactivity.
 
 ---
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 📋 Table of Contents
 - [✨ Features](#-features)
@@ -40,7 +40,7 @@ The backend is hosted on **Render's Free Tier**. It spins down after inactivity.
 - **✨ Auto-Migrations**: Tables created automatically on startup.
 - **✅ Data Validation**: Rigorous request validation with Pydantic.
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 🛠️ Tech Stack
 
@@ -53,7 +53,7 @@ The backend is hosted on **Render's Free Tier**. It spins down after inactivity.
 | **Validation** | Pydantic | Data Schema & Validation |
 | **Server** | Uvicorn | ASGI Server |
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 🚀 Local Development
 
@@ -91,7 +91,7 @@ uvicorn src.main:app --reload
 ```
 Server running at `http://localhost:8000`.
 
-![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
 
 ## 📡 API Endpoints
 
