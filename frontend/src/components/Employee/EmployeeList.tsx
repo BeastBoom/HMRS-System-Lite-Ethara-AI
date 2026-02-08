@@ -1,4 +1,4 @@
-import { User, Mail, Calendar, Trash2, Edit2, CheckCircle, XCircle, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { User, Mail, Calendar, Trash2, Edit2, CheckCircle, XCircle, Search, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 import type { Employee } from '../../types';
 
 interface EmployeeListProps {
@@ -9,6 +9,7 @@ interface EmployeeListProps {
   limit?: number;
   onPageChange?: (page: number) => void;
   onSearch?: (query: string) => void;
+  onView: (id: string) => void;
   onEdit: (employee: Employee) => void;
   onDelete: (id: string) => void;
 }
@@ -21,6 +22,7 @@ export const EmployeeList = ({
   limit = 10, 
   onPageChange, 
   onSearch, 
+  onView,
   onEdit, 
   onDelete 
 }: EmployeeListProps) => {
@@ -68,14 +70,23 @@ export const EmployeeList = ({
                 </div>
                 <div className="flex gap-1">
                   <button
+                    onClick={() => onView(employee.id)}
+                    className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                    title="View Details"
+                  >
+                    <Eye size={16} />
+                  </button>
+                  <button
                     onClick={() => onEdit(employee)}
                     className="p-1.5 text-slate-400 hover:text-brand-600 hover:bg-brand-50 rounded-full transition-colors"
+                    title="Edit"
                   >
                     <Edit2 size={16} />
                   </button>
                   <button
                     onClick={() => onDelete(employee.id)}
                     className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                    title="Delete"
                   >
                     <Trash2 size={16} />
                   </button>

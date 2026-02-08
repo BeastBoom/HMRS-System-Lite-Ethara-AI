@@ -87,7 +87,7 @@ export default function UpdatePage() {
       setAttendanceRecord(null);
       const dateStr = format(selectedDate, 'yyyy-MM-dd');
       try {
-        const res = await attendanceApi.getByDate(selectedAttEmp.id, dateStr);
+        const res = await attendanceApi.getByDate(selectedAttEmp.employeeId, dateStr);
         setAttendanceRecord(res);
         setAttStatus(res.status as 'present' | 'absent');
       } catch {
@@ -166,7 +166,7 @@ export default function UpdatePage() {
       }
       
       // Refresh record
-      const res = await attendanceApi.getByDate(selectedAttEmp.id, dateStr);
+      const res = await attendanceApi.getByDate(selectedAttEmp.employeeId, dateStr);
       setAttendanceRecord(res);
       
     } catch (error) {

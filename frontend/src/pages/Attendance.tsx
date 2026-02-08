@@ -95,20 +95,19 @@ export default function Attendance() {
     try {
       setSubmitting(true);
       
-      const items = Array.from(selectedIds).map(id => {
+      const employeeIds = Array.from(selectedIds).map(id => {
           const emp = employees.find(e => e.id === id);
-          return {
-              employeeId: emp?.employeeId || '', // Should always be found
-              status: status 
-          };
-      }).filter(item => item.employeeId); // Safety filter
+          return emp?.employeeId;
+      }).filter((id): id is string => !!id);
 
       await attendanceApi.bulkMark({
+        employeeIds,
         date,
-        items
+        status,
+        overwrite: true
       });
       
-      toast.success(`Marked attendance for ${items.length} employees`);
+      toast.success(`Marked attendance for ${employeeIds.length} employees`);
       setSelectedIds(new Set());
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to mark bulk attendance');

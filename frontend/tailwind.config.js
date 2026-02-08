@@ -11,12 +11,14 @@ export default {
         brand: {
           900: '#083826',   // deep evergreen
           700: '#0F6B4E',   // primary darker
+          600: '#168A69',   // <--- Added for buttons
           500: '#1FA07A',   // lively green
           300: '#6FD8B3'    // soft accent
         },
         accent: {
           900: '#7A2B1F',
           700: '#C94A33',
+          600: '#E36340',   // <--- Added for buttons
           500: '#FF7A4D',   // warm coral
           300: '#FFB69A'    // sand
         },

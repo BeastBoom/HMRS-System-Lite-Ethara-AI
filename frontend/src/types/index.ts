@@ -85,11 +85,10 @@ export interface TrendDataPoint {
 }
 
 export interface AttendanceBulkCreate {
+  employeeIds: string[];
   date: string;
-  items: {
-      employeeId: string;
-      status: 'present' | 'absent';
-  }[];
+  status: 'present' | 'absent';
+  overwrite?: boolean;
 }
 
 export interface AttendanceBulkResponse {

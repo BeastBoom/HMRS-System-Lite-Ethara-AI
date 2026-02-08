@@ -132,6 +132,10 @@ export default function Employees() {
         duration: 4000
       });
   };
+
+  const handleView = (id: string) => {
+      navigate(`/employees/${id}`);
+  };
   
   if (error) return <ErrorDisplay message={error} onRetry={fetchEmployees} />;
 
@@ -162,6 +166,7 @@ export default function Employees() {
             onSearch={setQuery}
             onDelete={handleDelete}
             onEdit={handleEdit}
+            onView={handleView}
         />
 
         {/* Mobile FAB */}

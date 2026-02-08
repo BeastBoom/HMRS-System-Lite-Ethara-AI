@@ -71,29 +71,38 @@ export default function Dashboard() {
         </div>
 
         {/* Metric Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <MetricCard
-            title="Total Employees"
-            value={summary?.totalEmployees || 0}
-            color="primary"
-          />
-          <MetricCard
-            title="Present Today"
-            value={summary?.todayPresent || 0}
-            color="accent"
-          />
-          <MetricCard
-            title="Present This Month"
-            value={summary?.monthPresent || 0}
-            color="sand"
-          />
-          <MetricCard
-            title="Avg Attendance"
-            value={`${summary?.avgAttendancePercent || 0}%`}
-            color="primary"
-            data={trends.map((t) => t.present)}
-          />
-        </div>
+        {/* Mock data for sparklines as requested */}
+        {(() => {
+           const MOCK_TREND = [40, 35, 55, 60, 45, 70, 65, 80, 75, 85, 80, 90, 85, 95];
+           return (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <MetricCard
+                title="Total Employees"
+                value={summary?.totalEmployees || 0}
+                color="primary"
+                data={MOCK_TREND}
+              />
+              <MetricCard
+                title="Present Today"
+                value={summary?.todayPresent || 0}
+                color="accent"
+                data={MOCK_TREND}
+              />
+              <MetricCard
+                title="Present This Month"
+                value={summary?.monthPresent || 0}
+                color="sand"
+                data={MOCK_TREND}
+              />
+              <MetricCard
+                title="Avg Attendance (30 Days)"
+                value={`${summary?.avgAttendancePercent || 0}%`}
+                color="primary"
+                data={MOCK_TREND}
+              />
+            </div>
+           );
+        })()}
 
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
