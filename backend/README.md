@@ -2,7 +2,7 @@
 
 ![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=23C55E&width=435&lines=FastAPI+Backend;RESTful+Architecture;Auto-scaling+Database;Secure+&+Reliable)
 
-> The robust server-side application for HRMS Lite, built with **FastAPI**, **PostgreSQL**, and **SQLAlchemy**.
+> The robust, high-performance server-side application for **HRMS-Lite**, providing the RESTful API that powers the system.
 
 <div align="center">
 
@@ -10,126 +10,133 @@
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 
-[**📚 Interactive API Docs**](https://hmrs-system-lite-ethara-ai.onrender.com/docs) | [**🔴 ReDoc**](https://hmrs-system-lite-ethara-ai.onrender.com/redoc)
+[**📚 Interactive API Docs (Swagger)**](https://hmrs-system-lite-ethara-ai.onrender.com/docs) | [**🔴 ReDoc**](https://hmrs-system-lite-ethara-ai.onrender.com/redoc)
 
 </div>
 
 ---
 
-### ⚠️ Important Note: Cold Start
-The backend is hosted on **Render's Free Tier**. It spins down after inactivity. Initial requests may take **60-90 seconds** to process while the server wakes up.
+### ⚠️ Important: Free Tier Hosting
+The backend is hosted on **Render's Free Tier**.
+> **Cold Start**: The server sleeps after inactivity. Initial requests may take **60-90 seconds** to process. Please be patient.
 
 ---
 
-
-
 ## 📋 Table of Contents
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#-tech-stack)
-- [🚀 Local Development](#-local-development)
-- [📡 API Endpoints](#-api-endpoints)
-- [🗄️ Database Schema](#-database-schema)
-- [📁 Folder Structure](#-folder-structure)
+
+1. [✨ Features](#-features)
+2. [🛠️ Technology Stack](#-technology-stack)
+3. [🚀 Getting Started](#-getting-started)
+4. [📡 API Endpoints](#-api-endpoints)
+5. [🗄️ Database Schema](#-database-schema)
+6. [� Configuration & Troubleshooting](#-configuration--troubleshooting)
 
 ## ✨ Features
 
-- **🚀 High Performance**: Built on Starlette and Pydantic for speed.
-- **🛡️ Auto-Documentation**: Swagger UI & ReDoc generated automatically.
-- **💾 Database ORM**: SQLAlchemy for robust database management.
-- **🔄 CORS Enabled**: Configured for seamless frontend integration.
-- **✨ Auto-Migrations**: Tables created automatically on startup.
-- **✅ Data Validation**: Rigorous request validation with Pydantic.
+*   **High Performance**: Built on **FastAPI**, one of the fastest Python frameworks available.
+*   **Auto-Documentation**: Automatically generates interactive API docs (Swagger UI) at `/docs`.
+*   **Data Validation**: Uses **Pydantic** models to ensure data integrity and provide clear error messages.
+*   **ORM Integration**: Uses **SQLAlchemy** for efficient and secure database interactions.
+*   **Auto-Migrations**: Automatically creates necessary database tables on startup.
+*   **CORS Support**: Configurable Cross-Origin Resource Sharing for secure frontend communication.
 
+## 🛠️ Technology Stack
 
-
-## 🛠️ Tech Stack
-
-| Category | Technology | usage |
+| Category | Technology | Usage |
 |----------|------------|-------|
-| **Framework** | FastAPI | Web Framework |
+| **Framework** | [FastAPI](https://fastapi.tiangolo.com/) | API Framework |
 | **Language** | Python 3.10+ | Core Logic |
-| **Database** | PostgreSQL | Data Persistence |
-| **ORM** | SQLAlchemy | Database Interaction |
-| **Validation** | Pydantic | Data Schema & Validation |
-| **Server** | Uvicorn | ASGI Server |
+| **Server** | [Uvicorn](https://www.uvicorn.org/) | ASGI Web Server |
+| **Database** | [PostgreSQL](https://www.postgresql.org/) | Data Storage |
+| **ORM** | [SQLAlchemy](https://www.sqlalchemy.org/) | Object-Relational Mapping |
+| **Validation** | [Pydantic](https://docs.pydantic.dev/) | Data Serialization & Schema |
 
-
-
-## 🚀 Local Development
+## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.10+
-- PostgreSQL Database
+*   Python 3.10 or higher
+*   PostgreSQL installed and running
 
 ### 1. Environment Setup
+Navigate to the backend directory and set up a virtual environment:
+
 ```bash
 cd backend
 python -m venv .venv
 
-# Windows
+# Activate Virtual Environment
+# Windows:
 .venv\Scripts\activate
-# Mac/Linux
+# Mac/Linux:
 source .venv/bin/activate
 ```
 
-### 2. Dependencies
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configuration
-Create a `.env` file:
+### 3. Environment Configuration
+Create a `.env` file in the `backend` directory:
+
 ```env
-DATABASE_URL=postgresql://user:pass@localhost:5432/hrms_db
-ALLOWED_ORIGINS=http://localhost:5173,https://hmrs-system-lite-ethara-ai.vercel.app
-```
-> **Note**: Add your Vercel frontend URL to `ALLOWED_ORIGINS` for production.
+# Database Connection String
+DATABASE_URL=postgresql://user:password@localhost:5432/hrms_db
 
-### 4. Run Server
+# Allowed Origins (Comma separated)
+ALLOWED_ORIGINS=http://localhost:5173,https://your-production-url.app
+```
+
+### 4. Run the Server
 ```bash
+# Development (Auto-reload)
 uvicorn src.main:app --reload
+
+# Production
+uvicorn src.main:app --host 0.0.0.0 --port 8000
 ```
-Server running at `http://localhost:8000`.
-
-
+Server will start at `http://localhost:8000`.
 
 ## 📡 API Endpoints
 
+Here is a summary of the available endpoints. Visit `/docs` for full details.
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/health` | System Health Check |
-| `GET` | `/api/employees` | List all employees |
-| `POST` | `/api/employees` | Add new employee |
-| `GET` | `/api/attendance` | Check attendance status |
-| `POST` | `/api/attendance` | Mark attendance |
-| `GET` | `/api/dashboard/*` | Analytics data |
-
-> **Note**: Full list available at `/docs`.
+| **GET** | `/health` | Health Check (Returns {"status": "ok"}) |
+| **GET** | `/api/employees` | List all employees (Pagination, Search, Filter) |
+| **POST** | `/api/employees` | Create a new employee |
+| **GET** | `/api/employees/{id}` | Get specific employee details |
+| **GET** | `/api/attendance` | Check attendance status |
+| **POST** | `/api/attendance` | Mark attendance (Single) |
+| **POST** | `/api/attendance/bulk` | Mark attendance (Bulk) |
+| **GET** | `/api/dashboard/summary` | Get key metrics for dashboard |
+| **GET** | `/api/dashboard/trends` | Get attendance trends for charts |
 
 ## 🗄️ Database Schema
 
-### Employees table
-- `id` (UUID, PK)
-- `full_name` (String)
-- `email` (String, Unique)
-- `department_id` (FK)
+### Employees (`employees`)
+*   `id` (UUID, PK): Unique identifier.
+*   `employee_id` (String, Unique): Custom ID (e.g., E-101).
+*   `full_name` (String): Name of the employee.
+*   `email` (String, Unique): Contact email.
+*   `department` (String): Department name.
 
-### Attendance Table
-- `id` (UUID, PK)
-- `employee_id` (FK)
-- `date` (Date)
-- `status` (Enum: Present/Absent)
+### Attendance (`attendance`)
+*   `id` (UUID, PK): Unique identifier.
+*   `employee_id` (UUID, FK): Link to Employee.
+*   `date` (Date): The date of attendance.
+*   `status` (Enum): `present` or `absent`.
 
-## 📁 Folder Structure
+## � Configuration & Troubleshooting
 
-```bash
-backend/src/
-├── routers/       # API Route Handlers
-├── models.py      # SQLAlchemy Models
-├── schemas.py     # Pydantic Schemas
-├── database.py    # DB Connection
-└── main.py        # App Config
-```
+### Database Connection Failed
+- Ensure PostgreSQL is running.
+- Verify your `DATABASE_URL` credentials (username, password, db name).
+- If using a cloud DB (Supabase/Neon), ensure your IP is whitelisted if required.
+
+### CORS Errors
+- Update `ALLOWED_ORIGINS` in your `.env` file to include the URL of your frontend application (e.g., `http://localhost:5173`).
 
 ---
 **Built with ❤️ using FastAPI & Python**
