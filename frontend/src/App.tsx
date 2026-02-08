@@ -23,7 +23,7 @@ function App() {
 
   return (
     <Router>
-      <Preloader isLoading={loading} />
+      {loading && <Preloader />}
       <Toaster />
       {!loading && (
         <Layout>
