@@ -1,431 +1,135 @@
 # HRMS-Lite Backend
 
-FastAPI-based backend for the Human Resource Management System. Provides RESTful APIs for employee management, attendance tracking, and dashboard analytics.
+![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=23C55E&width=435&lines=FastAPI+Backend;RESTful+Architecture;Auto-scaling+Database;Secure+&+Reliable)
 
-## 🎯 Features
+> The robust server-side application for HRMS Lite, built with **FastAPI**, **PostgreSQL**, and **SQLAlchemy**.
 
-- **RESTful API**: Clean, well-documented endpoints following REST principles
-- **Automatic Schema Creation**: Database tables created automatically on startup
-- **Input Validation**: Comprehensive validation using Pydantic schemas
-- **Error Handling**: Consistent error responses with detailed messages
-- **CORS Support**: Configurable cross-origin resource sharing
-- **Auto-generated Docs**: Interactive API documentation via Swagger UI and ReDoc
+<div align="center">
 
-## 🛠️ Technology Stack
+[![Backend](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://hmrs-system-lite-ethara-ai.onrender.com/docs)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 
-- **Framework**: FastAPI 0.109.2
-- **Database**: PostgreSQL (via SQLAlchemy 2.0.25)
-- **Validation**: Pydantic 2.6.1
-- **Server**: Uvicorn 0.27.1
-- **Database Driver**: psycopg2-binary 2.9.9
+[**📚 Interactive API Docs**](https://hmrs-system-lite-ethara-ai.onrender.com/docs) | [**🔴 ReDoc**](https://hmrs-system-lite-ethara-ai.onrender.com/redoc)
 
-## 📁 Project Structure
+</div>
 
-```
-backend/
-├── src/
-│   ├── __init__.py
-│   ├── main.py              # FastAPI application & startup logic
-│   ├── database.py          # Database connection & session management
-│   ├── models.py            # SQLAlchemy ORM models
-│   ├── schemas.py           # Pydantic validation schemas
-│   └── routers/
-│       ├── __init__.py
-│       ├── employees.py     # Employee CRUD operations
-│       ├── attendance.py    # Attendance tracking
-│       ├── dashboard.py     # Analytics & metrics
-│       └── departments.py   # Department management
-├── requirements.txt         # Python dependencies
-├── .env                     # Environment configuration
-└── README.md               # This file
-```
+---
 
-## 🚀 Setup Instructions
+### ⚠️ Important Note: Cold Start
+The backend is hosted on **Render's Free Tier**. It spins down after inactivity. Initial requests may take **60-90 seconds** to process while the server wakes up.
+
+---
+
+![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
+## 📋 Table of Contents
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#-tech-stack)
+- [🚀 Local Development](#-local-development)
+- [📡 API Endpoints](#-api-endpoints)
+- [🗄️ Database Schema](#-database-schema)
+- [📁 Folder Structure](#-folder-structure)
+
+## ✨ Features
+
+- **🚀 High Performance**: Built on Starlette and Pydantic for speed.
+- **🛡️ Auto-Documentation**: Swagger UI & ReDoc generated automatically.
+- **💾 Database ORM**: SQLAlchemy for robust database management.
+- **🔄 CORS Enabled**: Configured for seamless frontend integration.
+- **✨ Auto-Migrations**: Tables created automatically on startup.
+- **✅ Data Validation**: Rigorous request validation with Pydantic.
+
+![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
+## 🛠️ Tech Stack
+
+| Category | Technology | usage |
+|----------|------------|-------|
+| **Framework** | FastAPI | Web Framework |
+| **Language** | Python 3.10+ | Core Logic |
+| **Database** | PostgreSQL | Data Persistence |
+| **ORM** | SQLAlchemy | Database Interaction |
+| **Validation** | Pydantic | Data Schema & Validation |
+| **Server** | Uvicorn | ASGI Server |
+
+![Line Separator](https://i.imgur.com/WAae9OT.gif)
+
+## 🚀 Local Development
 
 ### Prerequisites
+- Python 3.10+
+- PostgreSQL Database
 
-- Python 3.10 or higher
-- PostgreSQL database (local or cloud)
-- pip (Python package manager)
-
-### 1. Create Virtual Environment
-
+### 1. Environment Setup
 ```bash
-# Navigate to backend directory
 cd backend
-
-# Create virtual environment
 python -m venv .venv
 
-# Activate virtual environment
-# Windows:
+# Windows
 .venv\Scripts\activate
-
-# macOS/Linux:
+# Mac/Linux
 source .venv/bin/activate
 ```
 
-### 2. Install Dependencies
-
+### 2. Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configure Environment Variables
-
-Create a `.env` file in the `backend` directory:
-
+### 3. Configuration
+Create a `.env` file:
 ```env
-# Database Configuration
-DATABASE_URL=postgresql://username:password@localhost:5432/hrms_db
-
-# CORS Configuration (comma-separated list of allowed origins)
-ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+DATABASE_URL=postgresql://user:pass@localhost:5432/hrms_db
+ALLOWED_ORIGINS=http://localhost:5173,https://hmrs-system-lite-ethara-ai.vercel.app
 ```
+> **Note**: Add your Vercel frontend URL to `ALLOWED_ORIGINS` for production.
 
-**Database URL Format:**
+### 4. Run Server
+```bash
+uvicorn src.main:app --reload
 ```
-postgresql://[user]:[password]@[host]:[port]/[database_name]
-```
+Server running at `http://localhost:8000`.
 
-**Examples:**
-- Local: `postgresql://postgres:password@localhost:5432/hrms_db`
-- Supabase: `postgresql://postgres:[password]@db.[project].supabase.co:5432/postgres`
-- Neon: `postgresql://[user]:[password]@[host].neon.tech/[dbname]`
+![Line Separator](https://i.imgur.com/WAae9OT.gif)
 
-### 4. Start the Server
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | System Health Check |
+| `GET` | `/api/employees` | List all employees |
+| `POST` | `/api/employees` | Add new employee |
+| `GET` | `/api/attendance` | Check attendance status |
+| `POST` | `/api/attendance` | Mark attendance |
+| `GET` | `/api/dashboard/*` | Analytics data |
+
+> **Note**: Full list available at `/docs`.
+
+## 🗄️ Database Schema
+
+### Employees table
+- `id` (UUID, PK)
+- `full_name` (String)
+- `email` (String, Unique)
+- `department_id` (FK)
+
+### Attendance Table
+- `id` (UUID, PK)
+- `employee_id` (FK)
+- `date` (Date)
+- `status` (Enum: Present/Absent)
+
+## 📁 Folder Structure
 
 ```bash
-# Development mode (with auto-reload)
-uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
-
-# Production mode
-uvicorn src.main:app --host 0.0.0.0 --port 8000
+backend/src/
+├── routers/       # API Route Handlers
+├── models.py      # SQLAlchemy Models
+├── schemas.py     # Pydantic Schemas
+├── database.py    # DB Connection
+└── main.py        # App Config
 ```
 
-The server will start on `http://localhost:8000`
-
-**Database tables are created automatically on startup** - no manual migration needed!
-
-### 5. Verify Installation
-
-```bash
-# Health check
-curl http://localhost:8000/health
-
-# Expected response:
-# {"status":"ok"}
-```
-
-## 📚 API Documentation
-
-Once the server is running, access the interactive API documentation:
-
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-## 📡 API Endpoints Reference
-
-### Health Check
-
-```http
-GET /health
-```
-
-**Response:**
-```json
-{
-  "status": "ok"
-}
-```
-
-### Employees
-
-#### List Employees
-```http
-GET /api/employees?page=1&limit=10&search=john&department=IT&sortBy=fullName&sortOrder=asc
-```
-
-**Query Parameters:**
-- `page` (optional): Page number (default: 1)
-- `limit` (optional): Items per page (default: 10)
-- `search` (optional): Search by name, email, or employee ID
-- `department` (optional): Filter by department name
-- `sortBy` (optional): Sort field (fullName, employeeId, email, department)
-- `sortOrder` (optional): asc or desc
-
-#### Create Employee
-```http
-POST /api/employees
-Content-Type: application/json
-
-{
-  "employeeId": "E1001",
-  "fullName": "John Doe",
-  "email": "john.doe@example.com",
-  "department": "IT"
-}
-```
-
-#### Get Employee
-```http
-GET /api/employees/{id}
-```
-
-#### Update Employee
-```http
-PATCH /api/employees/{id}
-Content-Type: application/json
-
-{
-  "fullName": "John Smith",
-  "email": "john.smith@example.com",
-  "department": "Management"
-}
-```
-
-#### Delete Employee
-```http
-DELETE /api/employees/{id}
-```
-
-### Attendance
-
-#### Mark Attendance
-```http
-POST /api/attendance
-Content-Type: application/json
-
-{
-  "employeeId": "E1001",
-  "date": "2026-02-08",
-  "status": "present"
-}
-```
-
-#### Get Attendance
-```http
-GET /api/attendance?employeeId=E1001&date=2026-02-08
-```
-
-#### Update Attendance
-```http
-PATCH /api/attendance
-Content-Type: application/json
-
-{
-  "employeeId": "E1001",
-  "date": "2026-02-08",
-  "status": "absent"
-}
-```
-
-#### Bulk Mark Attendance
-```http
-POST /api/attendance/bulk
-Content-Type: application/json
-
-{
-  "employeeIds": ["E1001", "E1002", "E1003"],
-  "date": "2026-02-08",
-  "status": "present",
-  "overwrite": false
-}
-```
-
-### Dashboard
-
-#### Get Summary
-```http
-GET /api/dashboard/summary
-```
-
-**Response:**
-```json
-{
-  "totalEmployees": 50,
-  "todayPresent": 45,
-  "monthPresent": 1200,
-  "avgAttendancePercent": 90.5
-}
-```
-
-#### Get Trends
-```http
-GET /api/dashboard/trends?from=2026-01-01&to=2026-01-31
-```
-
-#### Get Department Distribution
-```http
-GET /api/dashboard/distribution
-```
-
-### Departments
-
-#### List Departments
-```http
-GET /api/departments
-```
-
-## 🗄️ Database Models
-
-### Employee Model
-```python
-class Employee(Base):
-    id: UUID (Primary Key)
-    employee_id: str (Unique)
-    full_name: str
-    email: str (Unique)
-    department_id: int (Foreign Key)
-    created_at: datetime
-```
-
-### Attendance Model
-```python
-class Attendance(Base):
-    id: UUID (Primary Key)
-    employee_id: UUID (Foreign Key)
-    date: date
-    status: AttendanceStatus (Enum: 'present' | 'absent')
-    created_at: datetime
-    
-    # Unique constraint on (employee_id, date)
-```
-
-### Department Model
-```python
-class Department(Base):
-    id: int (Primary Key)
-    name: str (Unique)
-```
-
-## ⚠️ Error Responses
-
-All errors follow a consistent format:
-
-```json
-{
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Detailed error message",
-    "userMessage": "User-friendly message (optional)"
-  }
-}
-```
-
-**Error Codes:**
-- `VALIDATION_ERROR` (400): Invalid input data
-- `NOT_FOUND` (404): Resource not found
-- `DUPLICATE` (409): Duplicate entry (e.g., email already exists)
-- `INTERNAL_ERROR` (500): Server error
-
-## 🔧 Troubleshooting
-
-### Database Connection Issues
-
-**Error: "could not connect to server"**
-- Verify PostgreSQL is running
-- Check `DATABASE_URL` in `.env` file
-- Ensure database exists
-- Verify network/firewall settings
-
-**Error: "password authentication failed"**
-- Check username and password in `DATABASE_URL`
-- Verify user has access to the database
-
-### Table Creation Issues
-
-**Tables not created on startup**
-- Check server logs for errors
-- Verify database user has CREATE TABLE permissions
-- Ensure `Base.metadata.create_all()` is called in `main.py`
-
-### CORS Issues
-
-**Frontend can't access API**
-- Add frontend URL to `ALLOWED_ORIGINS` in `.env`
-- Format: `http://localhost:5173,https://your-frontend.com`
-- Restart server after changing `.env`
-
-### Import Errors
-
-**Error: "No module named 'src'"**
-- Ensure you're running from the `backend` directory
-- Use: `uvicorn src.main:app` (not `python src/main.py`)
-
-## 🚢 Deployment
-
-### Render Deployment
-
-1. Create a new **Web Service** on Render
-2. Connect your GitHub repository
-3. Configure:
-   - **Root Directory**: `backend`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn src.main:app --host 0.0.0.0 --port $PORT`
-4. Environment Variables:
-   - `DATABASE_URL`: PostgreSQL connection string
-   - `ALLOWED_ORIGINS`: Frontend URL(s)
-
-### Other Platforms
-
-**Railway:**
-```bash
-# Start command
-uvicorn src.main:app --host 0.0.0.0 --port $PORT
-```
-
-**Heroku:**
-```bash
-# Procfile
-web: uvicorn src.main:app --host 0.0.0.0 --port $PORT
-```
-
-## 🧪 Testing
-
-### Manual Testing
-
-```bash
-# Health check
-curl http://localhost:8000/health
-
-# Create employee
-curl -X POST http://localhost:8000/api/employees \
-  -H "Content-Type: application/json" \
-  -d '{"employeeId":"TEST001","fullName":"Test User","email":"test@example.com","department":"IT"}'
-
-# List employees
-curl http://localhost:8000/api/employees
-
-# Mark attendance
-curl -X POST http://localhost:8000/api/attendance \
-  -H "Content-Type: application/json" \
-  -d '{"employeeId":"TEST001","date":"2026-02-08","status":"present"}'
-```
-
-### Automated Testing (Future)
-
-For production, implement:
-- Unit tests with pytest
-- Integration tests with TestClient
-- Database fixtures with pytest-postgresql
-
-## 📝 Development Notes
-
-### Adding New Endpoints
-
-1. Create/update router in `src/routers/`
-2. Define Pydantic schemas in `src/schemas.py`
-3. Add database models in `src/models.py` if needed
-4. Include router in `src/main.py`
-
-### Database Schema Changes
-
-This MVP uses `Base.metadata.create_all()` for automatic table creation. For production:
-- Implement proper migration system (Alembic)
-- Version control schema changes
-- Test migrations on staging before production
-
-## 📄 License
-
-MIT License
+---
+**Built with ❤️ using FastAPI & Python**

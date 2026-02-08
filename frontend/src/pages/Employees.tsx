@@ -1,11 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { employeeApi } from '../services/api';
-import type { Employee, EmployeeCreate } from '../types';
+import { employeeApi, departmentApi } from '../services/api';
+import type { Employee, EmployeeCreate, Department } from '../types';
 import ErrorDisplay from '../components/ErrorDisplay';
 import { EmployeeList } from '../components/Employee/EmployeeList';
-import { DepartmentSelector } from '../components/DepartmentSelector';
 import { PageTransition } from '../components/ui/PageTransition';
 import { Plus } from 'lucide-react';
 
@@ -34,6 +33,24 @@ export default function Employees() {
   });
   const [formErrors, setFormErrors] = useState<Partial<EmployeeCreate>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [departments, setDepartments] = useState<Department[]>([]);
+  const [loadingDepartments, setLoadingDepartments] = useState(true);
+
+  // Fetch departments
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const data = await departmentApi.getAll();
+        setDepartments(data);
+      } catch (err) {
+        console.error('Failed to load departments', err);
+        toast.error('Failed to load departments');
+      } finally {
+        setLoadingDepartments(false);
+      }
+    };
+    fetchDepartments();
+  }, []);
 
   const fetchEmployees = useCallback(async () => {
     try {
@@ -200,7 +217,7 @@ export default function Employees() {
                         onChange={(e) =>
                           setFormData({ ...formData, employeeId: e.target.value })
                         }
-                        placeholder="e.g., E1001"
+                        placeholder="Enter employee ID"
                         className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all ${
                           formErrors.employeeId ? 'border-red-500' : 'border-slate-300'
                         }`}
@@ -220,7 +237,7 @@ export default function Employees() {
                         onChange={(e) =>
                           setFormData({ ...formData, fullName: e.target.value })
                         }
-                        placeholder="e.g., John Doe"
+                        placeholder="Enter full name"
                         className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all ${
                           formErrors.fullName ? 'border-red-500' : 'border-slate-300'
                         }`}
@@ -240,7 +257,7 @@ export default function Employees() {
                         onChange={(e) =>
                           setFormData({ ...formData, email: e.target.value })
                         }
-                        placeholder="e.g., john@example.com"
+                        placeholder="Enter email address"
                         className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all ${
                           formErrors.email ? 'border-red-500' : 'border-slate-300'
                         }`}
@@ -254,11 +271,28 @@ export default function Employees() {
                       <label className="block text-sm font-medium text-slate-700 mb-1">
                         Department *
                       </label>
-                        <DepartmentSelector 
-                          value={formData.department}
-                          onChange={(val) => setFormData({ ...formData, department: val })}
-                          error={formErrors.department}
-                        />
+                    <select
+                      value={formData.department}
+                      onChange={(e) =>
+                        setFormData({ ...formData, department: e.target.value })
+                      }
+                      disabled={loadingDepartments}
+                      className={`block w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all disabled:opacity-50 disabled:bg-slate-50 ${
+                        formErrors.department
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'border-slate-300'
+                      }`}
+                    >
+                      <option value="">{loadingDepartments ? 'Loading departments...' : 'Select Department'}</option>
+                      {departments.map((dept) => (
+                        <option key={dept.id} value={dept.name}>
+                          {dept.name}
+                        </option>
+                      ))}
+                    </select>
+                    {formErrors.department && (
+                      <p className="mt-1 text-sm text-red-500">{formErrors.department}</p>
+                    )}
                     </div>
                   </div>
 
