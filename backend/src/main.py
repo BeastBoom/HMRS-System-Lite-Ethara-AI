@@ -12,7 +12,7 @@ from .schemas import HealthResponse
 load_dotenv()
 
 # Get allowed origins from environment
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000")
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:3000,https://hmrs-system-lite-ethara-ai.vercel.app,https://hmrs-system-lite-ethara-ai.onrender.com")
 origins = [origin.strip() for origin in ALLOWED_ORIGINS.split(",")]
 
 app = FastAPI(
